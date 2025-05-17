@@ -1,18 +1,24 @@
+import { Suspense } from 'react';
 import './App.css';
 import { AutoBatchEventHandler } from './components/AutoBatchEventHandler';
 import { AutoBatchOther } from './components/AutoBatchOther';
 import { ReactQuery } from './components/ReactQuery';
 import { Transition } from './components/Transition';
+import { ErrorBoundary } from 'react-error-boundary';
 
 function App() {
   return (
     <div className="App">
       <AutoBatchEventHandler />
       <AutoBatchOther/>
-      <hr/>
+      <hr />
       <Transition/>
-      <hr/>
-      <ReactQuery/>
+      <hr />
+      <ErrorBoundary fallback = {<p>全体エラーです</p>}>
+        <Suspense fallback={<p>全体ロード中！</p>}>
+          <ReactQuery/>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
